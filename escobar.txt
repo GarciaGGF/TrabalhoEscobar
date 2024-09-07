@@ -1,0 +1,44 @@
+CREATE TABLE frutas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    quantidade INT NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    peso DECIMAL(5, 2) NOT NULL,
+    categoria VARCHAR(100),
+    data_entrada DATE
+);
+
+
+CREATE TABLE pedidos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_nome VARCHAR(255) NOT NULL,
+    data_pedido DATE NOT NULL,
+    total DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE detalhes_pedido (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    pedido_id INT NOT NULL,
+    fruta_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+    FOREIGN KEY (fruta_id) REFERENCES frutas(id)
+);
+
+
+INSERT INTO frutas (nome, quantidade, preco, peso, categoria, data_entrada) VALUES
+('Maçã', 100, 3.50, 0.15, 'Fruta Vermelha', '2024-08-01'),
+('Banana', 150, 2.00, 0.12, 'Fruta Amarela', '2024-08-05'),
+('Laranja', 120, 4.00, 0.20, 'Fruta Laranja', '2024-08-10'),
+
+INSERT INTO pedidos (cliente_nome, data_pedido, total) VALUES
+('Carlos Silva', '2024-08-25', 25.00),
+('Maria Oliveira', '2024-08-26', 18.50),
+('João Pereira', '2024-08-27', 22.00);
+
+INSERT INTO detalhes_pedido (pedido_id, fruta_id, quantidade, preco) VALUES
+(1, 1, 5, 3.50),  
+(1, 2, 10, 2.00), 
+(2, 3, 6, 4.00);
+
